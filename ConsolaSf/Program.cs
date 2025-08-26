@@ -1,37 +1,96 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Data.Common;
-using System.Net.WebSockets;
+﻿Console.WriteLine("Hello, World!");
 
-Console.WriteLine("Hello, World!");
+var persona = new Personas();
+Personas persona1 = new Personas();
+Personas persona2 = new Estudiantes();
 
-Videojuegos videojuego = new Videojuegos();
-videojuego.Id = 1;
-videojuego.Nombre = "Super Mario Bros";
-videojuego.Version = 1.0m;
-videojuego.Existe = true;
-videojuego.Fecha = DateTime.Now;
-videojuego.dispositivo = new Dispositivos() { Id = 1, Nombre = "PC", Valido = true };
+persona.Id = 1;
+persona.Nombre = "Pepito Perez";
+persona.Activo = true;
+persona.Salario = 1400000.0m;
+persona.Tipo = new Tipos() { Id = 1, Nombre = "Casado" };
+persona.VideoJuegos = new List<VideoJuegos>();
+persona.VideoJuegos.Add(new VideoJuegos() { Id = 1, Nombre = "LOZ 2025" });
+persona.VideoJuegos.Add(new VideoJuegos() { Id = 2, Nombre = "Tetrix" });
 
-public class Dispositivos
+Console.WriteLine(persona.Nombre);
+Console.WriteLine(persona.Tipo.Nombre);
 
+foreach (var elemento in persona.VideoJuegos)
 {
-    public int Id;
-    public string? Nombre;
-    public bool Valido;
+    Console.WriteLine(elemento.Nombre);
 }
 
-
-public class Videojuegos
+public class Tipos
 {
-    public int Id;
-    public string? Nombre;
-    public decimal Version;
-    public bool Existe;
-    public DateTime Fecha;
-    public Dispositivos? dispositivo; 
+    public int Id = 0;
+    public String? Nombre = "";
 }
 
-public class VideojuegosPc
+public class VideoJuegos
 {
-    public string? Emulador;
+    public int Id = 0;
+    public String? Nombre = "";
 }
+
+public class Personas
+{
+    public int Id = 0;
+    public String? Nombre = "";
+    public DateTime Fecha = DateTime.Now;
+    public bool Activo = false;
+    public decimal Salario = 0.0m;
+    public Tipos Tipo = new Tipos();
+    public List<VideoJuegos> VideoJuegos = new List<VideoJuegos>();
+}
+
+public interface IEstudiantes
+{
+    public bool Matricula();
+
+}
+
+public interface ISeguros
+{
+    public decimal SeguroDeVida(string Nombre);
+
+}
+
+public interface IComidas
+{
+    public string Desayuno();
+    public string Almuerzo();
+    public string Cena();
+}
+
+public class Estudiantes : Personas, IEstudiantes, ISeguros, IComidas
+
+{
+    public String? Carnet;
+    
+    public bool Matricula()
+    {
+        return true;
+    }
+
+    public decimal SeguroDeVida(string Nombre)
+    {
+        return 0.0m;
+    }
+
+    public string Desayuno()
+    {
+        return string "Huevo, arepa";
+    }
+
+    public string Almuerzo()
+    {
+        return string "Sopa, arroz y carne";
+    }
+
+    public string Cena()
+    {
+        return string "Salchipapa";
+    }
+}
+
